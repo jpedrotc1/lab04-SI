@@ -1,0 +1,58 @@
+	.col-md-4 {
+		text-align: bottom;
+	}
+
+	.col-md-4 button {
+		text-align: bottom; 
+		margin: 10px;
+
+	}
+	
+	.gallery {
+		text-align: center;
+	}
+	.gallery input {
+			margin: 10px;
+		background-attachment: relative;
+		background-position: center center;
+		min-height: 300px;
+		width: 100%;
+	    -webkit-background-size: 100%;
+	    -moz-background-size: 100%;
+	    -o-background-size: 100%;
+	    background-size: 100%;
+	    -webkit-background-size: cover;
+	    -moz-background-size: cover;
+	    -o-background-size: cover;
+	    background-size: cover;
+	}
+	
+	.modal-body {
+		text-align: left;
+	}
+	
+	.modal-body img{
+	  height: 380px;
+	  width: 200px;
+	  float: left;
+	  margin-right: 15px;
+	}
+
+	.row img{
+	  border: solid black 2px;
+	  padding: 2px;
+	}
+	.modal-footer{
+	  margin-bottom: 5px;
+	}
+	.modal-body{
+	   text-align: justify;
+	   margin-left: 12px;
+	   margin-right: 15px;
+	  }
+	.modal-dialog {
+	   width: 84%;
+	 }
+	 .modal-wide .modal-body {
+	   overflow-y: auto;
+	 }

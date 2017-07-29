@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html ng-app = "johnTv">
+<head>
+	<meta charset="utf-8">
+	<title>John-TV</title>
+    <script src="lib/jquery/jquery-3.2.1.min.js"></script>
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/bootstrap/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://bootswatch.com/cyborg/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="lib/css/style.css">
+	<script src="js/johnTv.js"></script>
+	<script src="js/controller/johnTvCtrl.js"></script>
+</head>
+<body ng-controller="johnTvCtrl">
+
+<!--Top navigation bar-->
+  <nav class="navbar navbar-inverse">
+    <nav class="nav nav-tabs">
+      <div class="container-fluid">
+      <div class="navbar-header">
+      <a class="navbar-brand">John-TV</a>
+    	</div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a class="active" href="#profile" data-toggle="tab">Profile</a></li>
+            <li><a href="#watchlist" data-toggle="tab">WatchList</a></li>
+            <li ><a  href="#search" data-toggle="tab" are-expanded="true">Search</a></li>
+             <form class="navbar-form navbar-left">
+      			<div class="form-group">
+       		 		<input type="text" class="form-control" placeholder="Search" ng-model="serieName" >
+      			</div>
+    	  		<button type="submit" class="btn btn-default" ng-click="searchSeries(serieName)" data-toggle="tab" data-target="#search">Search</button>
+            <button class="btn btn-default" type="button" ng-show="logged" ng-click="logout()">{{usuario.nome}}</button>
+            <button class="btn btn-default" type="button" ng-show="!logged" ng-click="register()">SIGN UP</button>
+            <button class="btn btn-default" type="button" ng-show="!logged" ng-click="login()">LOGIN</button
+    		</form>
+          </ul>
+        </div>
+      </div>
+    </nav>
+</nav>
+  
+ <!--Not logged message--> 
+ <div ng-show="!logged" class="alert alert-warning">
+       <strong>Warning!</strong> Not logged in!
+ </div>
+
+<!--Tabs content-->
+<div class="tab-content">
+	<div id="search" class="tab-pane">
+		<div class="row">
+	     	 <div class="gallery" ng-repeat="serie in search">
+	     	 	<div class="col-md-4">
+	            <img class="serie-poster" src={{serie.Poster}} width="200" height="290" >
+	            <div class="btn btn-group">
+	            	<button class="btn btn-default"  ng-click="addProfile(serie, true)">Add to Profile</button>
+	         		<button class="btn btn-default"   ng-click="addWatchlist(serie)">Add to WatchList</button>
+	         	</div>
+
+	         </div>
+	        </div> 
+	    </div>
+	</div>
+
+	<div id="profile" class="tab-pane in active">
+		<div class="row">
+    		<div class="gallery" ng-repeat="serie in profile">
+    			<div class="col-md-4">
+			    				<input type="button" ng-style="{'background' : 'url({{serie.Poster}}) no-repeat center top'}"
+			    		data-toggle="modal" data-target="#myModal" ng-click="getInfoForModal(serie)">
+			    		<div>{{serie.Title}}</div>
+			            <button class="btn btn-danger btn-block" ng-click="removeProfile(serie)">Remove from Profile</button>
+          		</div>
+        	 </div>
+    	</div>
+
+    	<div  class="modal fade"  role="dialog" id="myModal">
+          <div class="modal-dialog">
+          	<!-- Modal content-->
+          	<div class="modal-content">
+            	<div class="modal-header">
+             		 <button type="button" class="close" data-dismiss="modal">&times;</button>
+             		 <h4 class="modal-title">{{serieModal.Title}}</h4>
+            	</div>
+           	    <div class="modal-body">
+             		 <div class="row">
+               			 <img src="{{serieModal.Poster}}" align="left">
+        				 <p><b>Title: </b>{{serieModal.Title}}</p>
+               			 <p><b>IMDB Rating: </b>{{serieModal.imdbRating}}</p>
+               			 <p><b>Rated: </b>{{serieModal.Rated}}</p>
+               			 <p><b>Plot: </b>{{serieModal.Plot}}</p>
+               			 <p><b>Genre: </b>{{serieModal.Genre}}</p>
+                		 <p><b>Your Rating: </b>{{serieModal.myRate}}
+                	 	 <div class="form-group">
+                 	     		<input type="text" ng-model="rating" placeholder="Rate here! ?/10">
+                  		 		<button class="btn btn-default btn-sm" ng-click="serieModal.myRate = rating" type="button"><i></i>Submit</button>
+               			 </div>
+                		 <p><b>Last Episode: </b>{{serieModal.lastSeen}}</p>
+               		 	 <div class="form-group">
+                  			<input type="text" ng-model="lastEp" placeholder="Type Here">
+                  			<button class="btn btn-default btn-sm" type="button" ng-click="serieModal.lastSeen = lastEp"><i></i>Submit</button>
+               			 </div>
+               		 </div>
+           	    </div>
+           	    <div class="modal-footer">
+             		 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            	</div>
+          	</div>
+          </div>
+      </div>
+	</div>
+
+	<div id="watchlist" class="tab-pane">
+		<div class="row">
+			<div class="gallery" ng-repeat="serie in watchList">
+    			<div class="col-md-4">
+            			<img class="serie-poster" src={{serie.Poster}} width="200" height="290">
+            		<div>
+            			{{serie.Title}}
+            		</div>
+            			<button class="btn btn-default"  ng-click="addProfile(serie, true)">Add  to  Profile</button> 	  
+        		</div>
+        	</div>	
+		</div>
+	</div>
+	
+</div>
+
+</body>
+</html>
